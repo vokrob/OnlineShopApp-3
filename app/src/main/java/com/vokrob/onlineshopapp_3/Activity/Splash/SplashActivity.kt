@@ -1,4 +1,4 @@
-package com.vokrob.onlineshopapp_3.Activity
+package com.vokrob.onlineshopapp_3.Activity.Splash
 
 import android.content.Intent
 import android.os.Bundle
@@ -28,7 +28,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.vokrob.onlineshopapp_3.MainActivity
+import com.vokrob.onlineshopapp_3.Activity.BaseActivity
+import com.vokrob.onlineshopapp_3.Activity.Dashboard.MainActivity
 import com.vokrob.onlineshopapp_3.R
 
 class SplashActivity : BaseActivity() {

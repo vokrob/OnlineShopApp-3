@@ -1,0 +1,32 @@
+package com.vokrob.onlineshopapp_3.Domain
+
+data class SliderModel(val url: String = "")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
