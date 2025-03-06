@@ -10,12 +10,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Text
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.vokrob.onlineshopapp_3.Activity.BaseActivity
+import com.vokrob.onlineshopapp_3.Domain.CategoryModel
 import com.vokrob.onlineshopapp_3.Domain.SliderModel
 import com.vokrob.onlineshopapp_3.R
 import com.vokrob.onlineshopapp_3.ViewModel.MainViewModel
@@ -49,14 +51,26 @@ class MainActivity : BaseActivity() {
 @Composable
 fun DashboardScreen() {
     val viewModel = MainViewModel()
+
     val banners = remember { mutableStateListOf<SliderModel>() }
+    val categories = remember { mutableStateListOf<CategoryModel>() }
+
     var showBannerLoading by remember { mutableStateOf(true) }
+    var showCategoryLoading by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
         viewModel.loadBanner().observeForever {
             banners.clear()
             banners.addAll(it)
             showBannerLoading = false
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.loadCategory().observeForever {
+            categories.clear()
+            categories.addAll(it)
+            showCategoryLoading = false
         }
     }
 
@@ -124,6 +138,34 @@ fun DashboardScreen() {
                     }
                 } else {
                     Banners(banners)
+                }
+            }
+
+            item {
+                Text(
+                    text = "Categories",
+                    color = Color.Black,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 24.dp)
+                        .padding(horizontal = 16.dp)
+                )
+            }
+
+            item {
+                if (showCategoryLoading) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                } else {
+                    CategoryList(categories)
                 }
             }
         }
