@@ -53,9 +53,7 @@ fun CategoryList(categories: SnapshotStateList<CategoryModel>) {
                 onItemClick = {
                     selectedIndex = index
                     Handler(Looper.getMainLooper()).postDelayed(
-                        {
-
-                        },
+                        {},
                         500
                     )
                 }
@@ -78,9 +76,7 @@ fun Category(
             model = (item.picUrl),
             contentDescription = item.title,
             modifier = Modifier
-                .size(
-                    if (isSelected) 60.dp else 50.dp
-                )
+                .size(if (isSelected) 60.dp else 50.dp)
                 .background(
                     color =
                         if (isSelected) colorResource(R.color.brown)

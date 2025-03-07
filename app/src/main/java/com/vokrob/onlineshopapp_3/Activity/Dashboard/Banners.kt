@@ -96,9 +96,7 @@ fun DotIndicator(
                 size = dotSize
             )
 
-            if (index != totalDots - 1) {
-                Spacer(Modifier.padding(horizontal = 2.dp))
-            }
+            if (index != totalDots - 1) Spacer(Modifier.padding(horizontal = 2.dp))
         }
     }
 }

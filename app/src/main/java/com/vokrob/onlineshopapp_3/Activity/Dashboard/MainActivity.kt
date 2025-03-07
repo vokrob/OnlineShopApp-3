@@ -1,7 +1,9 @@
 package com.vokrob.onlineshopapp_3.Activity.Dashboard
 
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +29,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.vokrob.onlineshopapp_3.Activity.BaseActivity
 import com.vokrob.onlineshopapp_3.Domain.CategoryModel
+import com.vokrob.onlineshopapp_3.Domain.ItemModel
 import com.vokrob.onlineshopapp_3.Domain.SliderModel
 import com.vokrob.onlineshopapp_3.R
 import com.vokrob.onlineshopapp_3.ViewModel.MainViewModel
@@ -42,6 +47,13 @@ import com.vokrob.onlineshopapp_3.ViewModel.MainViewModel
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enableEdgeToEdge(
+            SystemBarStyle.light(
+                darkScrim = Color.White.toArgb(),
+                scrim = Color.White.toArgb()
+            )
+        )
 
         setContent { DashboardScreen() }
     }
@@ -54,9 +66,11 @@ fun DashboardScreen() {
 
     val banners = remember { mutableStateListOf<SliderModel>() }
     val categories = remember { mutableStateListOf<CategoryModel>() }
+    val bestSeller = remember { mutableStateListOf<ItemModel>() }
 
     var showBannerLoading by remember { mutableStateOf(true) }
     var showCategoryLoading by remember { mutableStateOf(true) }
+    var showBestSellerLoading by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
         viewModel.loadBanner().observeForever {
@@ -71,6 +85,14 @@ fun DashboardScreen() {
             categories.clear()
             categories.addAll(it)
             showCategoryLoading = false
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.loadBestSeller().observeForever {
+            bestSeller.clear()
+            bestSeller.addAll(it)
+            showBestSellerLoading = false
         }
     }
 
@@ -136,9 +158,7 @@ fun DashboardScreen() {
                     ) {
                         CircularProgressIndicator()
                     }
-                } else {
-                    Banners(banners)
-                }
+                } else Banners(banners)
             }
 
             item {
@@ -164,9 +184,42 @@ fun DashboardScreen() {
                     ) {
                         CircularProgressIndicator()
                     }
-                } else {
-                    CategoryList(categories)
+                } else CategoryList(categories)
+            }
+
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 24.dp)
+                        .padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Best Seller Product",
+                        color = Color.Black,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Text(
+                        text = "See All",
+                        color = colorResource(R.color.midBrown)
+                    )
                 }
+            }
+
+            item {
+                if (showBestSellerLoading) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                } else ListItems(bestSeller)
             }
         }
     }
