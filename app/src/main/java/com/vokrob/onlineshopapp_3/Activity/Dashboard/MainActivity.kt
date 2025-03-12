@@ -33,7 +33,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -55,13 +54,12 @@ class MainActivity : BaseActivity() {
             )
         )
 
-        setContent { DashboardScreen() }
+        setContent { DashboardScreen {} }
     }
 }
 
-@Preview
 @Composable
-fun DashboardScreen() {
+fun DashboardScreen(onCartClick: () -> Unit = {}) {
     val viewModel = MainViewModel()
 
     val banners = remember { mutableStateListOf<SliderModel>() }
@@ -191,7 +189,7 @@ fun DashboardScreen() {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 24.dp)
+                        .padding(top = 36.dp)
                         .padding(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
@@ -222,6 +220,13 @@ fun DashboardScreen() {
                 } else ListItems(bestSeller)
             }
         }
+
+        BottomMenu(
+            modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(bottomMenu) { bottom.linkTo(parent.bottom) },
+            onItemClick = onCartClick
+        )
     }
 }
 
