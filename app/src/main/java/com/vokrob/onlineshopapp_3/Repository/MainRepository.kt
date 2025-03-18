@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.vokrob.onlineshopapp_3.Domain.CategoryModel
-import com.vokrob.onlineshopapp_3.Domain.ItemModel
+import com.vokrob.onlineshopapp_3.Domain.ItemsModel
 import com.vokrob.onlineshopapp_3.Domain.SliderModel
 
 class MainRepository {
@@ -61,17 +61,17 @@ class MainRepository {
         return listData
     }
 
-    fun loadBestSeller(): LiveData<MutableList<ItemModel>> {
-        val listData = MutableLiveData<MutableList<ItemModel>>()
+    fun loadBestSeller(): LiveData<MutableList<ItemsModel>> {
+        val listData = MutableLiveData<MutableList<ItemsModel>>()
         val ref = firebaseDatabase.getReference("Items")
 
         ref.addValueEventListener(
             object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val lists = mutableListOf<ItemModel>()
+                    val lists = mutableListOf<ItemsModel>()
 
                     for (childSnapshot in snapshot.children) {
-                        val item = childSnapshot.getValue(ItemModel::class.java)
+                        val item = childSnapshot.getValue(ItemsModel::class.java)
                         item?.let { lists.add(it) }
                     }
 

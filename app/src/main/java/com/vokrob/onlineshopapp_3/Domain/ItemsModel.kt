@@ -2,7 +2,7 @@ package com.vokrob.onlineshopapp_3.Domain
 
 import java.io.Serializable
 
-data class ItemModel(
+data class ItemsModel(
     var title: String = "",
     var description: String = "",
     var categoryId: String = "",

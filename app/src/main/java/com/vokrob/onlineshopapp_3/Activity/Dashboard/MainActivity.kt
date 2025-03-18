@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.vokrob.onlineshopapp_3.Activity.BaseActivity
 import com.vokrob.onlineshopapp_3.Domain.CategoryModel
-import com.vokrob.onlineshopapp_3.Domain.ItemModel
+import com.vokrob.onlineshopapp_3.Domain.ItemsModel
 import com.vokrob.onlineshopapp_3.Domain.SliderModel
 import com.vokrob.onlineshopapp_3.R
 import com.vokrob.onlineshopapp_3.ViewModel.MainViewModel
@@ -64,7 +64,7 @@ fun DashboardScreen(onCartClick: () -> Unit = {}) {
 
     val banners = remember { mutableStateListOf<SliderModel>() }
     val categories = remember { mutableStateListOf<CategoryModel>() }
-    val bestSeller = remember { mutableStateListOf<ItemModel>() }
+    val bestSeller = remember { mutableStateListOf<ItemsModel>() }
 
     var showBannerLoading by remember { mutableStateOf(true) }
     var showCategoryLoading by remember { mutableStateOf(true) }
