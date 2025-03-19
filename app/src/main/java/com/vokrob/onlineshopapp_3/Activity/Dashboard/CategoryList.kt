@@ -1,5 +1,6 @@
 package com.vokrob.onlineshopapp_3.Activity.Dashboard
 
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import androidx.compose.foundation.background
@@ -28,7 +29,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import coil.compose.AsyncImage
+import com.vokrob.onlineshopapp_3.Activity.ListItems.ListItemsActivity
 import com.vokrob.onlineshopapp_3.Domain.CategoryModel
 import com.vokrob.onlineshopapp_3.R
 
@@ -53,7 +56,13 @@ fun CategoryList(categories: SnapshotStateList<CategoryModel>) {
                 onItemClick = {
                     selectedIndex = index
                     Handler(Looper.getMainLooper()).postDelayed(
-                        {},
+                        {
+                            val intent = Intent(context, ListItemsActivity::class.java).apply {
+                                putExtra("id", categories[index].id.toString())
+                                putExtra("title", categories[index].title)
+                            }
+                            startActivity(context, intent, null)
+                        },
                         500
                     )
                 }
