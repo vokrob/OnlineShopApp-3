@@ -1,5 +1,6 @@
 package com.vokrob.onlineshopapp_3.Activity.Detail
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.rememberAsyncImagePainter
 import com.vokrob.onlineshopapp_3.Activity.BaseActivity
+import com.vokrob.onlineshopapp_3.Activity.Cart.CartActivity
 import com.vokrob.onlineshopapp_3.Domain.ItemsModel
 import com.vokrob.onlineshopapp_3.Helper.ManagmentCart
 import com.vokrob.onlineshopapp_3.R
@@ -53,7 +55,14 @@ class DetailActivity : BaseActivity() {
                     item.numberInCart = 1
                     managmentCart.insertItems(item)
                 },
-                onCartClick = {}
+                onCartClick = {
+                    startActivity(
+                        Intent(
+                            this,
+                            CartActivity::class.java
+                        )
+                    )
+                }
             )
         }
     }

@@ -6,8 +6,6 @@ data class ItemsModel(
     var title: String = "",
     var description: String = "",
     var categoryId: String = "",
-    var sellerName: String = "",
-    var sellerPic: String = "",
 
     var picUrl: ArrayList<String> = ArrayList(),
     var size: ArrayList<String> = ArrayList(),

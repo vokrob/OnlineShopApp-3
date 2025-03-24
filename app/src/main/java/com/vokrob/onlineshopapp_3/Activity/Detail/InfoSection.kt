@@ -14,7 +14,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import com.vokrob.onlineshopapp_3.Domain.ItemsModel
 import com.vokrob.onlineshopapp_3.R
 
@@ -51,14 +50,14 @@ fun InfoSection(item: ItemsModel) {
         )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            AsyncImage(
-                model = item.sellerPic,
+            Image(
+                painter = painterResource(R.drawable.profile),
                 contentDescription = null,
                 modifier = Modifier.size(60.dp)
             )
 
             Text(
-                text = "Jemmy Hanks",
+                text = "Danil Borkov",
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .padding(start = 16.dp)

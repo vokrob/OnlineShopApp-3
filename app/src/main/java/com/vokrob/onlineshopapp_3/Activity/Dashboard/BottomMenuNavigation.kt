@@ -47,7 +47,8 @@ fun BottomMenu(
 
         BottomMenuItem(
             icon = painterResource(R.drawable.btn_2),
-            text = "Cart"
+            text = "Cart",
+            onItemClick = onItemClick
         )
 
         BottomMenuItem(

@@ -1,5 +1,6 @@
 package com.vokrob.onlineshopapp_3.Activity.Dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -37,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.vokrob.onlineshopapp_3.Activity.BaseActivity
+import com.vokrob.onlineshopapp_3.Activity.Cart.CartActivity
 import com.vokrob.onlineshopapp_3.Domain.CategoryModel
 import com.vokrob.onlineshopapp_3.Domain.ItemsModel
 import com.vokrob.onlineshopapp_3.Domain.SliderModel
@@ -54,7 +56,16 @@ class MainActivity : BaseActivity() {
             )
         )
 
-        setContent { DashboardScreen {} }
+        setContent {
+            DashboardScreen {
+                startActivity(
+                    Intent(
+                        this,
+                        CartActivity::class.java
+                    )
+                )
+            }
+        }
     }
 }
 
